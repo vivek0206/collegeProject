@@ -1,0 +1,263 @@
+{
+  "project_info": {
+    "project_number": "809772101239",
+    "firebase_url": "https://salespot-b66db.firebaseio.com",
+    "project_id": "salespot-b66db",
+    "storage_bucket": "salespot-b66db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:809772101239:android:1f7bb52fb54167af086072",
+        "android_client_info": {
+          "package_name": "com.example.sale_spot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "809772101239-3nnd49r3u9vvcduu7434isbrp5f5hk4c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sale_spot",
+            "certificate_hash": "1637736d0316b372954014c245566b037fcdc81c"
+          }
+        },
+        {
+          "client_id": "809772101239-k6th3i0ngnhgvlgvltk5oamj468aninh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sale_spot",
+            "certificate_hash": "c7d141888a50ad850abcebeb96e1333e75157a46"
+          }
+        },
+        {
+          "client_id": "809772101239-msmdhlvbs00qnapopp8kn56cr4tlbgll.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sale_spot",
+            "certificate_hash": "d68a0654659d9d12977e6fa9bdc18880cae854ac"
+          }
+        },
+        {
+          "client_id": "809772101239-2rj2ecodaplbek6srq2ebrcounp08ou5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sale_spot",
+            "certificate_hash": "99f84e0d07752250dbefa16b67a397c179d0236e"
+          }
+        },
+        {
+          "client_id": "809772101239-6ehb7mbb6amj00lergeuef89en4da1lq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sale_spot",
+            "certificate_hash": "214800aa136a0195a00b95fba89d1f5c3894637f"
+          }
+        },
+        {
+          "client_id": "809772101239-1kvkdm5ce36ggringa7kb76pdljdhii8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sale_spot",
+            "certificate_hash": "4170af2604b137896fb0176676ea0b6f9a5cc7c2"
+          }
+        },
+        {
+          "client_id": "809772101239-id6eg6g6s1o39ot3vbhr08csv41sijil.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4qWffRoWUG_x3Ox7yJ0bAcCK3iL8WAE0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "809772101239-id6eg6g6s1o39ot3vbhr08csv41sijil.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:809772101239:android:7960071f604ce05f086072",
+        "android_client_info": {
+          "package_name": "com.example.sale_spot_admin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "809772101239-vdvag8uomos5tn4v7laoasrff659j5lp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sale_spot_admin",
+            "certificate_hash": "d68a0654659d9d12977e6fa9bdc18880cae854ac"
+          }
+        },
+        {
+          "client_id": "809772101239-skd0q2uub2oj2s2n9sdhn2g512hokcpk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sale_spot_admin",
+            "certificate_hash": "214800aa136a0195a00b95fba89d1f5c3894637f"
+          }
+        },
+        {
+          "client_id": "809772101239-4red1v3d04as6n5ti0d4i292dj9dvueg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sale_spot_admin",
+            "certificate_hash": "4170af2604b137896fb0176676ea0b6f9a5cc7c2"
+          }
+        },
+        {
+          "client_id": "809772101239-id6eg6g6s1o39ot3vbhr08csv41sijil.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4qWffRoWUG_x3Ox7yJ0bAcCK3iL8WAE0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "809772101239-id6eg6g6s1o39ot3vbhr08csv41sijil.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:809772101239:android:886230b69450db16086072",
+        "android_client_info": {
+          "package_name": "com.mnnit.sale_spot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "809772101239-t9392clnoejrah5uetfed31npel554ku.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mnnit.sale_spot",
+            "certificate_hash": "1637736d0316b372954014c245566b037fcdc81c"
+          }
+        },
+        {
+          "client_id": "809772101239-mobukv9fpfispgil31jhj6eh3tgeqn1e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mnnit.sale_spot",
+            "certificate_hash": "c7d141888a50ad850abcebeb96e1333e75157a46"
+          }
+        },
+        {
+          "client_id": "809772101239-7hlqq95chk3nje79qonf5nu3l8bup0h8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mnnit.sale_spot",
+            "certificate_hash": "d68a0654659d9d12977e6fa9bdc18880cae854ac"
+          }
+        },
+        {
+          "client_id": "809772101239-id6eg6g6s1o39ot3vbhr08csv41sijil.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4qWffRoWUG_x3Ox7yJ0bAcCK3iL8WAE0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "809772101239-id6eg6g6s1o39ot3vbhr08csv41sijil.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:809772101239:android:95dcc38e51990585086072",
+        "android_client_info": {
+          "package_name": "com.salespot.salespot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "809772101239-9f0n57tabuigkq939oft1fp11gn680mh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.salespot.salespot",
+            "certificate_hash": "4170af2604b137896fb0176676ea0b6f9a5cc7c2"
+          }
+        },
+        {
+          "client_id": "809772101239-dp6nuqidnm17l4oeom3rj9mp7l4pp2o5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.salespot.salespot",
+            "certificate_hash": "d68a0654659d9d12977e6fa9bdc18880cae854ac"
+          }
+        },
+        {
+          "client_id": "809772101239-o477bgqjnr56u8p16las5mtli1lc1hqg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.salespot.salespot",
+            "certificate_hash": "1637736d0316b372954014c245566b037fcdc81c"
+          }
+        },
+        {
+          "client_id": "809772101239-nm95mb0drtcjffgp5d7ffbjbk7j3kc3e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.salespot.salespot",
+            "certificate_hash": "c7d141888a50ad850abcebeb96e1333e75157a46"
+          }
+        },
+        {
+          "client_id": "809772101239-jq5gcl5cavhd1jjs2mjsp88dn6eboooo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.salespot.salespot",
+            "certificate_hash": "99f84e0d07752250dbefa16b67a397c179d0236e"
+          }
+        },
+        {
+          "client_id": "809772101239-id6eg6g6s1o39ot3vbhr08csv41sijil.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4qWffRoWUG_x3Ox7yJ0bAcCK3iL8WAE0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "809772101239-id6eg6g6s1o39ot3vbhr08csv41sijil.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
