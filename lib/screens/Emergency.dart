@@ -42,6 +42,9 @@ class _EmergencyState extends State<Emergency> {
             child:Icon(Icons.camera),
             onPressed: (){_imagePickCamera();},
           ),
+          _images.length>0?Center(
+            child: Image.file(_images.last),
+          ):Center(),
         ],
       )
     );
@@ -54,7 +57,11 @@ class _EmergencyState extends State<Emergency> {
       return;
     }
     var image =await ImagePicker.pickImage(source: ImageSource.camera);
+    _images.add(image);
     toast('Please wait');
+    setState(() {
+
+    });
     // _cropImage(image);
     return;
 
