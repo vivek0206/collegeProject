@@ -21,6 +21,7 @@ import 'package:sale_spot/classes/user.dart';
 import 'package:sale_spot/screens/cart.dart';
 import 'package:sale_spot/screens/chooseCategory.dart';
 import 'package:sale_spot/screens/editProfile.dart';
+import 'package:sale_spot/screens/emergencyMsg.dart';
 import 'package:sale_spot/screens/product_detail.dart';
 import 'package:sale_spot/screens/promote.dart';
 import 'package:sale_spot/screens/subCategory.dart';
@@ -200,6 +201,14 @@ class _HomeState extends State<Home> {
 							onTap: () {
 								Navigator.pop(context);
 								Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context)=>Emergency(_user)));
+							},
+						),
+						ListTile(
+							leading: Icon(Icons.assignment_turned_in,),
+							title: Text('Send Emergency Msg'),
+							onTap: () {
+								Navigator.pop(context);
+								Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context)=>EmergencyMsg(_user)));
 							},
 						),
             ListTile(

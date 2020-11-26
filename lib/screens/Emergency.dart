@@ -4,9 +4,12 @@
 import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:sale_spot/classes/user.dart';
 import 'package:flutter/material.dart';
 import 'package:sale_spot/services/toast.dart';
+
+import 'emergencyNotification.dart';
 
 class Emergency extends StatefulWidget {
   final User _user;
@@ -29,10 +32,24 @@ class _EmergencyState extends State<Emergency> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Emergency'),
+        actions: <Widget>[
+          Padding(
+              padding: EdgeInsets.only(right: 20.0),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context)=>EmergencyNotification(_user)));
+                },
+                child: Icon(
+                  LineIcons.bell,
+                  size: 26.0,
+                ),
+              )
+          ),
+        ],
       ),
       body:Column(
         children: <Widget>[
-          Text("hi i am vicky"),
+          Text("select Icard Image to detect your blood group"),
           RaisedButton(
             shape: new RoundedRectangleBorder(
                 borderRadius: new BorderRadius.circular(18.0),
@@ -46,7 +63,8 @@ class _EmergencyState extends State<Emergency> {
             child: Image.file(_images.last),
           ):Center(),
         ],
-      )
+      ),
+
     );
 
   }
