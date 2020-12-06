@@ -3,88 +3,88 @@
 
 import 'dart:io';
 
+import 'package:camera/camera.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:sale_spot/classes/user.dart';
 import 'package:flutter/material.dart';
 import 'package:sale_spot/services/toast.dart';
+import 'package:qrscan/qrscan.dart' as scanner;
 
-import 'emergencyNotification.dart';
+import 'make_profile.dart';
 
 class Emergency extends StatefulWidget {
-  final User _user;
-  Emergency(this._user);
+  final AuthResult _authResult;
+  Emergency(this._authResult);
 
   @override
-  _EmergencyState createState() => _EmergencyState(_user);
+  _EmergencyState createState() => _EmergencyState(_authResult);
 }
 
 class _EmergencyState extends State<Emergency> {
 
-  final User _user;
-  _EmergencyState(this._user);
-
-  List<File> _images=[];
-
+  final AuthResult _authResult;
+  _EmergencyState(this._authResult);
+  @override
+  void initState() {
+    // TODO: implement initState
+    scanBarCode();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Emergency'),
-        actions: <Widget>[
-          Padding(
-              padding: EdgeInsets.only(right: 20.0),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context)=>EmergencyNotification(_user)));
-                },
-                child: Icon(
-                  LineIcons.bell,
-                  size: 26.0,
-                ),
-              )
-          ),
-        ],
+        title: Text('Scan ID-card'),
       ),
-      body:Column(
-        children: <Widget>[
-          Text("select Icard Image to detect your blood group"),
-          RaisedButton(
-            shape: new RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(18.0),
-                side: BorderSide(color: Colors.black)),
-            color: Colors.black,
-            textColor: Colors.white,
-            child:Icon(Icons.camera),
-            onPressed: (){_imagePickCamera();},
-          ),
-          _images.length>0?Center(
-            child: Image.file(_images.last),
-          ):Center(),
-        ],
-      ),
+      body:Center(
+        child: RaisedButton(
+          child: Text("Scan Barcode"),
+          onPressed: ()
+            {
+              scanBarCode();
+              },
+        ),
+      )
 
     );
 
   }
+  Future<void> scanBarCode() async {
+    toast("Scan your Icard Barcode");
+    String cameraScanResult = await scanner.scan();
+    print(cameraScanResult);
+    if(isValidReg(cameraScanResult))
+    {
+      print("yes");
+      Navigator.push(context, MaterialPageRoute(builder: (context) {
+        return MakeProfile(_authResult);
+      }));
 
-  _imagePickCamera() async {
-    if(_images.length>=2){
-      toast('Max images selected');
-      return;
     }
-    var image =await ImagePicker.pickImage(source: ImageSource.camera);
-    _images.add(image);
-    toast('Please wait');
-    setState(() {
+    else{
+      print("no");
+      toast("Could not identify as MNNIT student.Please retry");
+      scanBarCode();
+    }
+  }
+  bool isValidReg(String cameraScanResult) {
+    cameraScanResult=cameraScanResult.trim();
+    print(cameraScanResult.length);
+    if(cameraScanResult==null || cameraScanResult.length!=8)
+      return false;
+    cameraScanResult=cameraScanResult.substring(0,4);
+    int regYear=int.parse(cameraScanResult);
 
-    });
-    // _cropImage(image);
-    return;
-
-
-
+    int currentYear=DateTime.now().year;
+    if(regYear>=currentYear-4&&regYear<=currentYear)
+    {
+      return true;
+    }
+    return false;
 
   }
 }

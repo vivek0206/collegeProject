@@ -7,8 +7,15 @@ class User {
 	int _blockedNo;
 	String _photoUrl;
 	String _documentId;
+	String _bloodType;
 
-	User();
+	String get bloodType => _bloodType;
+
+  set bloodType(String value) {
+    _bloodType = value;
+  }
+
+  User();
 
 	String get photoUrl => _photoUrl;
 
@@ -59,6 +66,7 @@ class User {
 		map['mobile'] = _mobile;
 		map['address'] = _address;
 		map['blockedNo'] = _blockedNo;
+		map['bloodType']=_bloodType;
 		return map;
 	}
 
@@ -68,5 +76,6 @@ class User {
 		this._mobile = map['mobile'];
 		this._address = map['address'];
 		this._blockedNo = map['blockedNo'];
+		this.bloodType=map['bloodType'];
 	}
 }

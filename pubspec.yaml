@@ -53,6 +53,13 @@ dependencies:
   flutter_slidable: "^0.5.4"
   auto_animated: ^2.1.0
   line_icons: ^0.2.0
+  qrscan: ^0.2.19
+
+#  firebase_ml_vision: ^0.9.9
+  camera: ^0.5.8+11
+  path_provider: ^1.6.7
+
+
 
 
 

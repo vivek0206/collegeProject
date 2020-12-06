@@ -31,13 +31,47 @@ class _MakeProfileState extends State<MakeProfile> {
 
 	User _user = User();
 	bool _isLoading = false;
-
+	String _bloodType;
+	final List<String> nameList = <String>["O+", "O-", "A+", "A-", "B-", "B+", "AB+", "AB-"];
+	List<String> myTopics = List<String>();
+	Map<String,String>m=Map();
+	String bloodGroup;
 	void initState() {
 		super.initState();
 		_user.name = authResult.user.displayName;
 		_user.email = authResult.user.email;
 		_user.blockedNo = 0;
 		_user.photoUrl = authResult.user.photoUrl;
+		m['O+']='OPlus';
+		m['O-']='OMinus';
+		m['A+']='APlus';
+		m['A-']='AMinus';
+		m['B-']='BMinus';
+		m['B+']='BPlus';
+		m['AB+']='ABPlus';
+		m['AB-']='ABMinus';
+		_bloodType = nameList[0];
+		_user.bloodType=_bloodType;
+
+		bloodGroup=_user.bloodType;
+		if(bloodGroup=='O-')
+			myTopics=['O-','O+','AB-','AB+','B-','B+','A-','A+'];
+		else if(bloodGroup=='O+')
+			myTopics=['O+','AB+','A+'];
+		else if(bloodGroup=='AB-')
+			myTopics=['AB-','AB+'];
+		else if(bloodGroup=='AB+')
+			myTopics=['AB+'];
+		else if(bloodGroup=='B-')
+			myTopics=['AB-','AB+','B-','B+'];
+		else if(bloodGroup=='B+')
+			myTopics=['AB+','B+'];
+		else if(bloodGroup=='A-')
+			myTopics=['AB-','AB+','A-','A+'];
+		else if(bloodGroup=='A+')
+			myTopics=['AB+','A+'];
+
+
 	}
 
 	@override
@@ -102,6 +136,26 @@ class _MakeProfileState extends State<MakeProfile> {
 													),
 												),
 											),
+												Container(
+													padding: EdgeInsets.all(20.0),
+													child: DropdownButton(
+															value: _bloodType.isNotEmpty ? _bloodType : 'O+',
+															isExpanded: true,
+															items: nameList.map(
+																		(item) {
+																	return DropdownMenuItem(
+																		value: item,
+																		child: new Text(item),
+																	);
+																},
+															).toList(),
+															onChanged: (value) {
+																setState(() {
+																	_bloodType = value;
+																	_user.bloodType=value;
+																});
+															}),
+												),
 				  							Padding(
 				  								padding: EdgeInsets.all(10.0),
 				  								child: TextFormField(
@@ -148,6 +202,7 @@ class _MakeProfileState extends State<MakeProfile> {
 				  									),
 				  								),
 				  							),
+
 				  							Padding(
 				  								padding: EdgeInsets.all(10.0),
 				  								child: Center(
@@ -179,12 +234,17 @@ class _MakeProfileState extends State<MakeProfile> {
 				_isLoading = true;
 			});
 			_profileForm.currentState.save();
+			print(_user.bloodType);
+			_user.bloodType=m[_user.bloodType];
 			await Firestore.instance.collection('user').add(_user.toMap()).then((docRef) {
 				_user.documentId = docRef.documentID;
 			});
 			FirebaseAuth auth = FirebaseAuth.instance;
 			FirebaseUser tempUser = await auth.currentUser();
 			Firestore.instance.collection('user').document(_user.documentId).updateData({'uid': tempUser.uid});
+			// Firestore.instance.collection('user').document(_user.documentId).updateData({'bloodType': _user.bloodType});
+			for(String topic in myTopics)
+				Home.fcm.subscribeToTopic(m[topic]);
 
 			Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => Home(_user)), (Route<dynamic> route) => false);
 		}

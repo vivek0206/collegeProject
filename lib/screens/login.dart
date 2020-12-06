@@ -1,14 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loading/loading.dart';
 import 'package:sale_spot/classes/user.dart';
+import 'package:sale_spot/screens/Emergency.dart';
 import 'package:sale_spot/screens/home.dart';
 import 'package:sale_spot/screens/make_profile.dart';
 import 'package:sale_spot/services/toast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
+
 
 
 class Login extends StatefulWidget {
@@ -103,6 +107,9 @@ class _LoginState extends State<Login> {
 		});
 		FirebaseUser userDetails = authResult.user;
 		QuerySnapshot snapshot = await Firestore.instance.collection('user').where('email', isEqualTo: userDetails.email).getDocuments();
+		setState(() {
+			_isLoading = false;
+		});
 		if(snapshot.documents.length!=0) {
 			_user = User.fromMapObject(snapshot.documents[0].data);
 			_user.documentId = snapshot.documents[0].documentID;
@@ -110,12 +117,23 @@ class _LoginState extends State<Login> {
 			Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => Home(_user)), (Route<dynamic> route) => false);
 		}
 		else {
-			setState(() {
-			  _isLoading = false;
-			});
-			Navigator.push(context, MaterialPageRoute(builder: (context) {
-				return MakeProfile(authResult);
-			}));
+			QuerySnapshot snapshot1 = await Firestore.instance.collection('admin').where('email', isEqualTo: userDetails.email).getDocuments();
+			if(snapshot1.documents.length!=0) {
+
+				Navigator.push(context, MaterialPageRoute(builder: (context) {
+					return MakeProfile(authResult);
+				}));
+			}else{
+				Navigator.push(context, MaterialPageRoute(builder: (context) {
+					return Emergency(authResult);
+				}));
+
+			}
+
+
 		}
 	}
+
+
+
 }

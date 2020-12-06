@@ -5,6 +5,7 @@ import 'package:auto_animated/auto_animated.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity/connectivity.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
@@ -25,11 +26,13 @@ import 'package:sale_spot/screens/emergencyMsg.dart';
 import 'package:sale_spot/screens/product_detail.dart';
 import 'package:sale_spot/screens/promote.dart';
 import 'package:sale_spot/screens/subCategory.dart';
+import 'package:sale_spot/services/manualTools.dart';
 import 'package:sale_spot/services/shimmerLayout.dart';
 import 'package:sale_spot/services/slideTransition.dart';
 import 'package:sale_spot/services/toast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
+import 'emergencyNotification.dart';
 import 'faq.dart';
 import 'feedback.dart';
 import 'myProductList.dart';
@@ -39,7 +42,8 @@ import 'package:sale_spot/screens/Emergency.dart';
 class Home extends StatefulWidget {
 	User _user;
 	Home(this._user);
-
+	static FirebaseMessaging fcm = FirebaseMessaging();
+	static Firestore db = Firestore.instance;
 	@override
 	_HomeState createState() => _HomeState(_user);
 }
@@ -50,19 +54,36 @@ class _HomeState extends State<Home> {
 
 	GoogleSignIn _googleSignIn = GoogleSignIn();
 
-	FirebaseMessaging _fcm = FirebaseMessaging();
+
 
 	String token;
 	GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
+	int adminFlag=0;
 	void initState() {
 		super.initState();
 		checkDbAccess();
 		checkForBlock();
 		storeSharedPreferences();
-		_fcm.configure(
+		checkAdmin();
+		Home.fcm.configure(
 			onMessage: (Map<String, dynamic> message) async {
 				print('onMessage: $message');
+				String mblood=((message['notification']['title']).split(' '))[2];
+				showDialog(
+					context: context,
+					builder: (context) => AlertDialog(
+						content: ListTile(
+							title: Text(BloodMap.StringToBlood[mblood]),
+							subtitle: Text(message['notification']['body']),
+						),
+						actions: <Widget>[
+							FlatButton(
+								child: Text('Ok'),
+								onPressed: () => Navigator.of(context).pop(),
+							),
+						],
+					),
+				);
 			},
 			onResume: (Map<String, dynamic> message) async {
 				print('onResume: $message');
@@ -197,20 +218,22 @@ class _HomeState extends State<Home> {
 						),
 						ListTile(
 							leading: Icon(Icons.assignment_turned_in,),
-							title: Text('Emergency'),
+							title: Text('Emergency Notification Panel'),
 							onTap: () {
 								Navigator.pop(context);
-								Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context)=>Emergency(_user)));
+
+								Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context)=>EmergencyNotification(_user)));
 							},
 						),
-						ListTile(
+
+							adminFlag==1?ListTile(
 							leading: Icon(Icons.assignment_turned_in,),
 							title: Text('Send Emergency Msg'),
 							onTap: () {
 								Navigator.pop(context);
 								Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context)=>EmergencyMsg(_user)));
 							},
-						),
+						):Container(),
             ListTile(
               leading: Icon(Icons.assignment_turned_in,),
               title: Text('My Products'),
@@ -757,7 +780,7 @@ class _HomeState extends State<Home> {
 		}
 
 		void getToken() async {
-			token = await _fcm.getToken();
+			token = await Home.fcm.getToken();
 			Firestore.instance.collection('user').document(_user.documentId).updateData({'token': token});
 		}
 
@@ -807,6 +830,22 @@ class _HomeState extends State<Home> {
 				);
 			}
 		);
+	}
+
+  Future<void> checkAdmin() async {
+		QuerySnapshot snapshot1 = await Firestore.instance.collection('admin')
+				.where('email', isEqualTo: _user.email)
+				.getDocuments();
+		if (snapshot1.documents.length != 0) {
+			setState(() {
+				adminFlag=1;
+			});
+		} else {
+			setState(() {
+				adminFlag=0;
+			});
+		}
+
 	}
 
 
