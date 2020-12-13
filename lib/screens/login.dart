@@ -40,7 +40,7 @@ class _LoginState extends State<Login> {
             height: screenHeight(context)/2,
           ),
 			  	Center(
-						child:Text("SaleSpot",
+						child:Text("MNNIT-Spot",
 								style:TextStyle(
 									color:Colors.cyan,
                   fontFamily:'Montserrat',
@@ -79,6 +79,7 @@ class _LoginState extends State<Login> {
               }),
             ),
           ),
+					Text('Use E-mail id mentioned on your Id-Card'),
 			  ],
 			)
 		);
@@ -121,7 +122,7 @@ class _LoginState extends State<Login> {
 			if(snapshot1.documents.length!=0) {
 
 				Navigator.push(context, MaterialPageRoute(builder: (context) {
-					return MakeProfile(authResult);
+					return MakeProfile(authResult,'admin');
 				}));
 			}else{
 				Navigator.push(context, MaterialPageRoute(builder: (context) {

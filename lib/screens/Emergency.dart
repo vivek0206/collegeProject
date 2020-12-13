@@ -4,6 +4,7 @@
 import 'dart:io';
 
 import 'package:camera/camera.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:line_icons/line_icons.dart';
@@ -55,14 +56,27 @@ class _EmergencyState extends State<Emergency> {
   }
   Future<void> scanBarCode() async {
     toast("Scan your Icard Barcode");
-    String cameraScanResult = await scanner.scan();
-    print(cameraScanResult);
-    if(isValidReg(cameraScanResult))
+    String scannedRegNo = await scanner.scan();
+    print(scannedRegNo.length);
+    if(isValidReg(scannedRegNo))
     {
-      print("yes");
-      Navigator.push(context, MaterialPageRoute(builder: (context) {
-        return MakeProfile(_authResult);
-      }));
+      QuerySnapshot snapshot1 = await Firestore.instance.collection('CollegeData').where('regNo', isEqualTo: scannedRegNo).getDocuments();
+      if(snapshot1.documents.length!=0) {
+        if(snapshot1.documents[0].data['email']==_authResult.user.email)
+        {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return MakeProfile(_authResult,snapshot1.documents[0].data['bloodGroup']);
+          }));
+        }else{
+          toast('Email you are trying to register is different from Email mentioned in your Id-Card');
+
+        }
+      }else{
+        toast('We are unable to get your Id-Card data, please contact admin');
+        Navigator.pop(context);
+
+      }
+
 
     }
     else{

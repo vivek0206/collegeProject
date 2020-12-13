@@ -15,15 +15,17 @@ import 'home.dart';
 
 class MakeProfile extends StatefulWidget {
 	AuthResult authResult;
-	MakeProfile(this.authResult);
+	String preInfo;
+	MakeProfile(this.authResult,this.preInfo);
 
 	@override
-	_MakeProfileState createState() => _MakeProfileState(authResult);
+	_MakeProfileState createState() => _MakeProfileState(authResult,preInfo);
 }
 
 class _MakeProfileState extends State<MakeProfile> {
 	AuthResult authResult;
-	_MakeProfileState(this.authResult);
+	String preInfo;
+	_MakeProfileState(this.authResult,this.preInfo);
 
 	GoogleSignIn _googleSignIn = GoogleSignIn();
 
@@ -51,6 +53,8 @@ class _MakeProfileState extends State<MakeProfile> {
 		m['AB+']='ABPlus';
 		m['AB-']='ABMinus';
 		_bloodType = nameList[0];
+		if(preInfo!='admin')
+			_bloodType=preInfo;
 		_user.bloodType=_bloodType;
 
 		bloodGroup=_user.bloodType;
@@ -136,7 +140,7 @@ class _MakeProfileState extends State<MakeProfile> {
 													),
 												),
 											),
-												Container(
+												preInfo=='admin'?Container(
 													padding: EdgeInsets.all(20.0),
 													child: DropdownButton(
 															value: _bloodType.isNotEmpty ? _bloodType : 'O+',
@@ -155,6 +159,19 @@ class _MakeProfileState extends State<MakeProfile> {
 																	_user.bloodType=value;
 																});
 															}),
+												):Padding(
+													padding: EdgeInsets.all(10.0),
+													child: TextFormField(
+														readOnly: true,
+														initialValue: preInfo,
+														decoration: InputDecoration(
+																labelText: 'Blood Group',
+																errorStyle: TextStyle(color: Colors.red),
+																border: OutlineInputBorder(
+																		borderRadius: BorderRadius.circular(20.0)
+																)
+														),
+													),
 												),
 				  							Padding(
 				  								padding: EdgeInsets.all(10.0),
@@ -242,7 +259,12 @@ class _MakeProfileState extends State<MakeProfile> {
 			FirebaseAuth auth = FirebaseAuth.instance;
 			FirebaseUser tempUser = await auth.currentUser();
 			Firestore.instance.collection('user').document(_user.documentId).updateData({'uid': tempUser.uid});
-			// Firestore.instance.collection('user').document(_user.documentId).updateData({'bloodType': _user.bloodType});
+			//admin check
+			QuerySnapshot snapshot1 = await Firestore.instance.collection('admin').where('email', isEqualTo: _user.email).getDocuments();
+			if(snapshot1.documents.length!=0) {
+
+				Home.fcm.subscribeToTopic('Admin');
+			}
 			for(String topic in myTopics)
 				Home.fcm.subscribeToTopic(m[topic]);
 

@@ -32,6 +32,7 @@ import 'package:sale_spot/services/slideTransition.dart';
 import 'package:sale_spot/services/toast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
+import 'adminPanel.dart';
 import 'emergencyNotification.dart';
 import 'faq.dart';
 import 'feedback.dart';
@@ -111,6 +112,16 @@ class _HomeState extends State<Home> {
 				overlayShadowColors: Colors.red,
 				animationCurve: Curves.fastOutSlowIn,
 				images:[
+					Container(
+						decoration: BoxDecoration(
+//							color: Colors.lightBlue,
+								borderRadius: BorderRadius.all(Radius.circular(10))
+						),
+						height:100,
+						width:100,
+//              child:Image.asset('assets/images/slider_1.png'),
+						child:Image.asset('assets/images/slide_3.jpg',fit: BoxFit.fitWidth,),
+					),
 					Container(
               decoration: BoxDecoration(
 //							color: Colors.lightBlue,
@@ -217,7 +228,7 @@ class _HomeState extends State<Home> {
 							),
 						),
 						ListTile(
-							leading: Icon(Icons.assignment_turned_in,),
+							leading: Icon(Icons.notification_important,),
 							title: Text('Emergency Notification Panel'),
 							onTap: () {
 								Navigator.pop(context);
@@ -225,15 +236,24 @@ class _HomeState extends State<Home> {
 								Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context)=>EmergencyNotification(_user)));
 							},
 						),
+						adminFlag==1?ListTile(
+							leading: Icon(Icons.notifications_active,),
+							title: Text('Admin Panel'),
+							onTap: () {
+								Navigator.pop(context);
 
-							adminFlag==1?ListTile(
-							leading: Icon(Icons.assignment_turned_in,),
-							title: Text('Send Emergency Msg'),
+								Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context)=>AdminPanel()));
+							},
+						):Container(),
+
+							ListTile(
+							leading: Icon(Icons.send,),
+							title: Text('Send Emergency Message'),
 							onTap: () {
 								Navigator.pop(context);
 								Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context)=>EmergencyMsg(_user)));
 							},
-						):Container(),
+						),
             ListTile(
               leading: Icon(Icons.assignment_turned_in,),
               title: Text('My Products'),
@@ -303,7 +323,7 @@ class _HomeState extends State<Home> {
 									SliverAppBar(
 											expandedHeight: 140.0,
 											backgroundColor:Color(int.parse('0xff0288D1')),
-											title: new Text("SaleSpot",style:TextStyle(letterSpacing: 1.0,fontSize: 28.0),),
+											title: new Text("MNNIT-Spot",style:TextStyle(letterSpacing: 1.0,fontSize: 28.0),),
 											centerTitle: true,
 											leading: IconButton(
 													icon: Icon(LineIcons.navicon, color: Colors.white),
@@ -411,18 +431,19 @@ class _HomeState extends State<Home> {
 
                     child: Container(
 //                        color: Colors.white,
+
 												height:50.0,
-                        margin: EdgeInsets.symmetric(horizontal:10.0,vertical: 2.0),
+                        margin: EdgeInsets.symmetric(horizontal:10.0,vertical: 10.0),
                         decoration: BoxDecoration(
                           color: Color(int.parse('#94C4F4'.replaceAll('#', '0xff'))) ,
 												borderRadius: BorderRadius.all(Radius.circular(10)),
-												
+
                         ),
-												child:Image.asset('assets/images/r1.png',fit: BoxFit.fitHeight,),
-//                      child: ListTile(
-//                        title:Text("Recommended For You",style: TextStyle(fontSize: 18,color: Colors.black87,fontWeight: FontWeight.w500),),
-//
-//                      )
+												// child:Image.asset('assets/images/r1.png',fit: BoxFit.fitHeight,),
+                     child: ListTile(
+                       title:Text("Products For Sale",textAlign: TextAlign.center,style: TextStyle(fontSize: 20,color: Colors.black87,fontWeight: FontWeight.w500),),
+
+                     )
                     ),
 
 									),
